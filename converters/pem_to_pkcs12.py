@@ -1,42 +1,59 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jun 16 12:01:25 2024
-
-@author: Subham Divakar
-"""
-
-from cryptography.hazmat.primitives.serialization import load_pem_private_key, Encoding, PrivateFormat
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.backends import default_backend
+from OpenSSL import crypto
+import os
 
 class PEMtoPKCS12Converter:
     def __init__(self):
         pass
 
-    def convert(self, pem_file, pkcs12_file, password=None):
+    def convert(self, pem_key_file, pem_cert_file, pkcs12_file, password=None):
         try:
-            with open(pem_file, "rb") as f:
-                pem_data = f.read()
-                private_key = load_pem_private_key(pem_data, password=password, backend=default_backend())
+            # Load PEM private key
+            with open(pem_key_file, "rb") as kf:
+                pem_key_data = kf.read()
+                private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, pem_key_data)
 
-                pkcs12_data = private_key.private_bytes(
-                    encoding=Encoding.PKCS12,
-                    format=PrivateFormat.PKCS8,
-                    encryption_algorithm=serialization.BestAvailableEncryption(password)
-                )
+            # Load PEM certificate
+            with open(pem_cert_file, "rb") as cf:
+                pem_cert_data = cf.read()
+                cert = crypto.load_certificate(crypto.FILETYPE_PEM, pem_cert_data)
 
-                with open(pkcs12_file, "wb") as pf:
-                    pf.write(pkcs12_data)
+            # Create a PKCS#12 object
+            pkcs12 = crypto.PKCS12()
+            pkcs12.set_privatekey(private_key)
+            pkcs12.set_certificate(cert)
 
-        except FileNotFoundError:
-            print(f"Error: File '{pem_file}' not found.")
-        except Exception as e:
-            print(f"An error occurred: {e}")
+            # Dump the PKCS#12 object to binary
+            pkcs12_data = pkcs12.export(passphrase=password)
+
+            # Save the PKCS#12 file
+            with open(pkcs12_file, "wb") as pf:
+                pf.write(pkcs12_data)
+
+            print(f"Conversion from PEM to PKCS#12 complete. Output saved to {pkcs12_file}.")
+        except FileNotFoundError as e:
+            print(f"Error: {e}")
+        except crypto.Error as e:
+            print(f"An error occurred with OpenSSL: {e}")
+
+def main():
+    converter = PEMtoPKCS12Converter()
+    pem_key_filename = input("Enter the PEM key filename (without extension): ").strip()
+    pem_cert_filename = input("Enter the PEM certificate filename (without extension): ").strip()
+    pkcs12_filename = input("Enter the PKCS#12 filename to save (without extension): ").strip()
+    password = input("Enter password for PKCS#12 (leave blank for no encryption): ").strip()
+    if password == "":
+        password = None
+
+    converter.convert(pem_key_filename, pem_cert_filename, pkcs12_filename, password)
+    
 
 if __name__ == "__main__":
     converter = PEMtoPKCS12Converter()
-    pem_filename = input("Enter the PEM filename (without extension): ").strip() + ".pem"
-    pkcs12_filename = input("Enter the PKCS#12 filename to save (without extension): ").strip() + ".pfx"
+    pem_key_filename = input("Enter the PEM key filename (without extension): ").strip() + ".pem"
+    pem_cert_filename = input("Enter the PEM certificate filename (without extension): ").strip() + ".pem"
+    pkcs12_filename = input("Enter the PKCS#12 filename to save (without extension): ").strip() + ".p12"
     password = input("Enter password for PKCS#12 (leave blank for no encryption): ").strip()
-    converter.convert(pem_filename, pkcs12_filename, password)
-    print(f"Conversion from PEM to PKCS#12 complete. Output saved to {pkcs12_filename}.")
+    if password == "":
+        password = None
+
+    converter.convert(pem_key_filename, pem_cert_filename, pkcs12_filename, password)

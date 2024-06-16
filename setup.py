@@ -9,13 +9,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='sdcfc',
-    version='1.0.0',
-    description='This tool converts certs from one format(PEM, DER, PKCS12) files to other formats(PEM, DER, PKCS12).',
+    version='0.1.1',
+    description='SDCFC(Secure Data Certificate Format Converter) This tool converts certs from one format(PEM, DER, PKCS12) files to other formats(PEM, DER, PKCS12).',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     author='Subham Divakar',
     author_email='shubham.divakar@gmail.com',
-    url='https://github.com/yourusername/pkcs12-to-pem-converter',
+    url='https://github.com/shubham10divakar/sdcfc',
     packages=find_packages(),
     install_requires=[
         'cryptography',
@@ -23,7 +23,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'sdcfc=quick_cert_conversion_tool:main',
+            'sdcfc=sdcfc:main',
         ],
     },
     classifiers=[
