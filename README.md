@@ -1,14 +1,8 @@
 # Secure Data Certificate Format Converter (SDCFC)
 
-Secure Data Certificate Format Converter (SDCFC) is a powerful tool for managing certificate files, offering seamless conversion between PEM, DER, and PKCS12 formats. Whether you need to generate, convert, or manage certificates, SD-CFC provides a user-friendly interface to streamline your workflow securely.
+Secure Data Certificate Format Converter (SDCFC) is a powerful tool for managing certificate and private key files, offering seamless conversion between PEM, DER, and PKCS12 formats. Whether you need to generate, convert, or manage certificates, SD-CFC provides a user-friendly interface to streamline your workflow securely.
 
 ## Features
-
-- **Conversion**: Easily convert certificate files between PEM, DER, and PKCS12 formats.
-- **Generation**: Generate self-signed certificates in PEM format.
-- **Encryption**: Encrypt private keys with password protection.
-- **User-Friendly**: Simple command-line interface for quick operations.
-- **Cross-Platform**: Compatible with Windows, macOS, and Linux.
 - Convert PEM to DER
 - Convert DER to PEM
 - Convert PEM to PKCS#12
@@ -16,9 +10,7 @@ Secure Data Certificate Format Converter (SDCFC) is a powerful tool for managing
 - Convert DER to PKCS#12
 
 ## Installation
-
-## Installation
-To install SD-CFC, use pip:
+To install SDCFC, use pip:
 ```sh
 pip install sdcfc
 
@@ -35,10 +27,25 @@ Example Usage
 
 python
 
-to i nvoke the mainmenu...
+to invoke the mainmenu...
 import sdcfc
 # Now you can use functions or classes defined in sdfc module
 sdcfc.main()
+Note:- when you are using path(absolute or relative paths) to files donot enclose them in either '' or "" quotes in any environment.
+ex- usaage
+
+1. Convert PEM to DER
+2. Convert DER to PEM
+3. Convert PEM to PKCS#12
+4. Convert PKCS#12 to PEM
+5. Convert DER to PKCS#12
+6. Open and View PKCS#12 file contents
+0. Exit
+Enter your choice: 1
+Enter the PEM filename (with extension): C:\D\my docs\my docs\projects\Self signed cert generator\Quick Self Signed Cert Generator Tool\quick self signed cert generator tool\quick_cert_conversion_tool\quick_cert_conversion_tool\demonew.pem
+Enter the DER filename to save (with extension): demo.der
+Conversion from PEM to DER complete. Output saved to demo.der.
+
 
 OR use you can specific functions as well
 
