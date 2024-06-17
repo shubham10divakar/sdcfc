@@ -6,14 +6,14 @@ Created on Sun Jun 16 12:00:52 2024
 """
 
 # main.py
-from converters.pem_to_der import PEMtoDERConverter
-from converters.der_to_pem import DERtoPEMConverter
-from converters.der_to_pkcs12 import main as der_to_pkcs12_main
-from converters.pem_to_pkcs12 import PEMtoPKCS12Converter
-from converters.pem_to_pkcs12 import main as pem_to_pkcs12_main
-from converters.pkcs12_to_pem import PKCS12toPEMConverter
-from converters.der_to_pkcs12 import DERtoPKCS12Converter
-from PKCS12viewer import main as pkcs12_viewer
+from .converters.pem_to_der import PEMtoDERConverter
+from .converters.der_to_pem import DERtoPEMConverter
+from .converters.der_to_pkcs12 import main as der_to_pkcs12_main
+from .converters.pem_to_pkcs12 import PEMtoPKCS12Converter
+from .converters.pem_to_pkcs12 import main as pem_to_pkcs12_main
+from .converters.pkcs12_to_pem import PKCS12toPEMConverter
+from .converters.der_to_pkcs12 import DERtoPKCS12Converter
+from .PKCS12viewer import main as pkcs12_viewer
 
 def main():
     print("Welcome to the Secure Data - Certificate Format Converter (SD-CFC)!")
@@ -37,7 +37,7 @@ def main():
     print("4. Convert PKCS#12 to PEM")
     print("5. Convert DER to PKCS#12")
     print("6. Open and View PKCS#12 file contents")
-    print("20. Exit")
+    print("0. Exit")
     choice = input("Enter your choice: ").strip()
 
     if choice == '1':
@@ -92,7 +92,7 @@ def main():
     elif choice == '6':
         pkcs12_viewer()
         #print('')
-    elif choice == '20':
+    elif choice == '0':
         print("Exiting (SD-CFC) === Secure Data - Certificate Format Converter Tool ===\n")
         print("Feedbacks are welcome.\n")
         print("Created by Subham Divakar\n")

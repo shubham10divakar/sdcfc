@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='sdcfc',
-    version='0.1.1',
+    version='0.1.2',
     description='SDCFC(Secure Data Certificate Format Converter) This tool converts certs from one format(PEM, DER, PKCS12) files to other formats(PEM, DER, PKCS12).',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
